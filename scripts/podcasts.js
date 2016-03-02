@@ -12,23 +12,25 @@ var PodcastBox = React.createClass({
 
 var PodcastList = React.createClass({
   render: function() {
-    //var podcastEntries = this.props.data.map(function(comment) {
-    return (
-        <div className="podcastList">
-          <Podcast 
-            imgUrl="http://static.giantbomb.com/uploads/original/0/31/2750982-beastcast_itunes.png"
-            podcastTitle="The BeastCast"
-            episodeTitle="number 40"
-            episodeDate="Monday, February 26th 2016 @ 6:00 AM">
-              A description
-            </Podcast>
-        </div>
+    var podcastEntries = this.props.data.map(function(podcast) {
+      return (
+        <Podcast key={podcast.id} 
+        podcastTitle={podcast.podcastTitle} 
+        imgUrl={podcast.imgUrl}
+        episodeTitle={podcast.episodeTitle}
+        episodeDate={podcast.episodeDate}
+        episodeDownload={podcast.episodeDownload}>
+          {podcast.episodeDescription}
+        </Podcast>
       );
+    });
+    return (
+        <div className="podcastList"> 
+          {podcastEntries}
+        </div>
+    );
   }
-});
-//<PodcastTitle imgUrl="http://static.giantbomb.com/uploads/original/0/31/2750982-beastcast_itunes.png">The BeastCast!</PodcastTitle>
-//<Episode episodeTitle="number 40" episodeDate="Monday, February 26th 2016 @ 6:00 AM">A description</Episode>
-          
+});       
 
 var Podcast = React.createClass({
   render: function() {
@@ -56,8 +58,32 @@ var noMargin = {
   marginBottom:0
 }
 
+var data = [
+  {id: 1, podcastTitle: "The BeastCast",
+            imgUrl: "http://static.giantbomb.com/uploads/original/0/31/2750982-beastcast_itunes.png",
+            episodeTitle: "number 40",
+            episodeDate: "Monday, February 26th 2016 @ 6:00 AM",
+            episodeDescription: " We've got pricing news that seems to make the reality of VR a bit more virtual, our thoughts on SUPERHOT, updates on the Coleco Chameleon and Leland Yee, your questions, our mistakes, and more! ",
+            episodeDownload: "http://www.giantbomb.com/podcasts/download/1519/Ep40_-_The_Giant_Beastcast-02-25-2016-1683396598.mp3"
+          },
+  {id: 2, podcastTitle: "Serial",
+            imgUrl: "http://a5.mzstatic.com/us/r30/Music69/v4/70/c9/71/70c97133-f3a8-738e-ea2c-27a6dc7d9731/cover170x170.jpeg",
+            episodeTitle: "S02 Episode 08: Hindsight, Part 2",
+            episodeDate: "February-19-16 5:30 AM",
+            episodeDescription: "Woulda, coulda, shoulda…",
+            episodeDownload: "https://dts.podtrac.com/redirect.mp3/dovetail.prxu.org/serial/71b7d15f-8dd1-46d0-b761-a41ccdba0641/serial-s02-e08.mp3"
+          },
+  {id: 3, podcastTitle: "Serial",
+            imgUrl: "http://a5.mzstatic.com/us/r30/Music69/v4/70/c9/71/70c97133-f3a8-738e-ea2c-27a6dc7d9731/cover170x170.jpeg",
+            episodeTitle: "S02 Episode 08: Hindsight, Part 2",
+            episodeDate: "February-19-16 5:30 AM",
+            episodeDescription: "Woulda, coulda, shoulda…",
+            episodeDownload: "https://dts.podtrac.com/redirect.mp3/dovetail.prxu.org/serial/71b7d15f-8dd1-46d0-b761-a41ccdba0641/serial-s02-e08.mp3"
+          },
+];
+
 ReactDOM.render(
-  React.createElement(PodcastBox, null),
-  //<PodcastBox data={data} />
+  //React.createElement(PodcastBox, null),
+  <PodcastBox data={data} />,
   document.getElementById('content')
 );

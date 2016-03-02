@@ -77,20 +77,25 @@ p {
     margin: auto;
     margin-top: 2px;
 }
+.podcastBox {
+    width: 80%;
+    margin: auto;
+    margin-top: 2px;
+}
 
-.podcast-box {
-	min-width:800px;
+.podcastList {
+	min-width: 80%;
 	background: #e6e6e6;
     font-size: 17;
     height: 200px;
     margin-top: -2px; /* dirty way to remove whitespace between divs */ 
     padding: 12px 12px 12px 12px;
 }
-.podcast-box:nth-of-type(odd) {
+.podcastList:nth-of-type(odd) {
 	background: #a6a6a6;
 }
 
-.podcast-title {
+.podcastTitle {
 	text-align: center;
     width: 20%;
     height: 200px;

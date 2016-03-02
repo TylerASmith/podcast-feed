@@ -1,0 +1,132 @@
+html{
+	font-family: "Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+}
+
+body {
+	background-color: #555;
+}
+
+h1 {
+}
+
+p {
+}
+
+.banner {
+    width: 80%;
+    margin: auto;
+	text-align: center;
+	font-size: 42px;
+    padding: 14px 0px;
+    background-color: #C0282D;
+}
+
+
+.navbar ul {
+    width: 80%;
+    margin: auto;
+    list-style-type: none;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+.nabarv ul:before,.navbar ul:after {
+    content:"";
+    display:table;
+}
+
+.navbar li {
+    float: left;
+}
+
+.navbar li a, .dropdown-button {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar .active {
+    background-color: #4CAF50;
+}
+.navbar li a:hover:not(.active), .dropdown-button :hover, .dropdown:hover {
+    background-color: #d42b31;
+}
+
+.navbar li.dropdown {
+    display: inline-block;
+}
+
+.navbar .dropdown-content {
+    position: absolute;
+    background-color: #f9f9f9;
+    padding: 12px 16px;
+    min-width: 160px;
+    display: none;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    margin-top: 2px;
+}
+
+.podcast-box {
+	min-width:800px;
+	background: #e6e6e6;
+    font-size: 17;
+    height: 200px;
+    margin-top: -2px; /* dirty way to remove whitespace between divs */ 
+    padding: 12px 12px 12px 12px;
+}
+.podcast-box:nth-of-type(odd) {
+	background: #a6a6a6;
+}
+
+.podcast-title {
+	text-align: center;
+    width: 20%;
+    height: 200px;
+    float: left;
+}
+
+.episode {
+    width: 70%;
+    height: 200px;
+    float: left;
+    padding: 12px 12px 12px 12px;
+  	position: relative;
+}
+
+a.download {
+    color: black;
+    text-align: center;
+    padding: 8px 8px;
+    text-decoration: none;
+	background-color: #C0282D;
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+}
+a.download:hover {
+    color: black;
+    background-color: #d42b31;
+}
+a.download:visited {
+    color: black;
+}
+
+
+.footer {
+    color: white;
+    width: 80%;
+    margin: auto;
+	text-align: center;
+}

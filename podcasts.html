@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Podcast Feed</title>
+		<link rel="stylesheet" href="./css/podcast.css" />
+		<meta name="description" content="A custom podcast feed.">
+
+		<script src="https://fb.me/react-0.14.7.js"
+        integrity="sha384-xQae1pUPdAKUe0u0KUTNt09zzdwheX4VSUsV8vatqM+t6X7rta01qOzessL808ox"
+        crossorigin="anonymous"></script>
+		<script src="https://fb.me/react-dom-0.14.7.js"
+        integrity="sha384-A1t0GCrR06cTHvMjaxeSE8XOiz6j7NvWdmxhN/9z748wEvJTVk13Rr8gMzTUnd8G"
+        crossorigin="anonymous"></script>
+	    <script src="./react-0.14.7/build/react.js"></script>
+	    <script src="./react-0.14.7/build/react-dom.js"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+	</head>
+	<body>
+		<div class='banner'>
+			Podcast Feed
+		</div>
+		<div class="navbar">
+			<ul>
+				<li><a class="active" href="podcasts.html">Home</a></li>
+				<li class="dropdown">
+				<a class="dropdown-button" href="#">Add Podcast</a>
+				<div class="dropdown-content">
+					RSS Feed:
+					<form 
+				</div>
+				</li>
+				<ul style="float:right;list-style-type:none;">
+					<li style="float:right;"><a href="about.html">About</a></li>
+					<li style="float:right;"><a href="login.html">Login</a></li>
+				</ul>
+			</ul> 
+		</div>
+		<div class="container">
+			<div class="podcast-box">
+				<div class="podcast-title">
+					<h2 style="margin-top:0;margin-bottom:0">The Giant Beastcast</h2>
+					<a href="http://www.giantbomb.com/"><img height="80%" src="http://static.giantbomb.com/uploads/original/0/31/2750982-beastcast_itunes.png" alt="The Giant Beastcast logo"/></a>
+				</div>
+				<div class="episode">
+					The Giant Beastcast - Episode 40<br/>
+					Monday, February 26th 2016 @ 6:00 AM
+					We've got pricing news that seems to make the reality of VR a bit more virtual, our thoughts on SUPERHOT, updates on the Coleco Chameleon and Leland Yee, your questions, our mistakes, and more!
+					<a href="#" class="download">Download</a>
+				</div>
+			</div>
+			<div class="podcast-box">
+			    <script type="text/babel">
+			      var PodcastEntry = React.createClass({
+			        render: function() {
+
+			          return 
+			          	<p>{message}</p>
+			          ;
+			        }
+			      });
+			      var start = new Date().getTime();
+			      setInterval(function() {
+			        ReactDOM.render(
+			          <ExampleApplication elapsed={new Date().getTime() - start} />,
+			          document.getElementById('container')
+			        );
+			      }, 50);
+			    </script>
+			</div>
+			<div class="podcast-box">
+				<div class="podcast-title">
+					<h2 style="margin-top:0;margin-bottom:0">The Giant Beastcast</h2>
+					<a href="http://www.giantbomb.com/"><img height="80%" src="http://static.giantbomb.com/uploads/original/0/31/2750982-beastcast_itunes.png" alt="The Giant Beastcast logo"/></a>
+				</div>
+				<div class="episode">
+					The Giant Beastcast - Episode 40<br/>
+					Monday, February 26th 2016 @ 6:00 AM
+					We've got pricing news that seems to make the reality of VR a bit more virtual, our thoughts on SUPERHOT, updates on the Coleco Chameleon and Leland Yee, your questions, our mistakes, and more!
+					<a href="#" class="download">Download</a>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+            <br/>
+			&copy; <script type="text/JavaScript">document.write(new Date().getFullYear());</script>
+			Tyler Smith
+		</div>
+
+    <div id="container">
+    <script type="text/babel">
+      var ExampleApplication = React.createClass({
+        render: function() {
+          var elapsed = Math.round(this.props.elapsed  / 100);
+          var seconds = elapsed / 10 + (elapsed % 10 ? '' : '.0' );
+          var message =
+            'React has been successfully running for ' + seconds + ' seconds.';
+
+          return <p>{message}</p>;
+        }
+      });
+      var start = new Date().getTime();
+      setInterval(function() {
+        ReactDOM.render(
+          <ExampleApplication elapsed={new Date().getTime() - start} />,
+          document.getElementById('container')
+        );
+      }, 50);
+    </script>
+    </div>
+  </body>
+	</body>
+</html>

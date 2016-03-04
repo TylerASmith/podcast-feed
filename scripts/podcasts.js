@@ -4,6 +4,26 @@ var PodcastBox = React.createClass({
   getInitialState: function() {
     return {entry: []};
   },
+  componentDidMount: function() {
+    //Don't know if it trust https://crossorigin.me/ but it
+    //bypasses CORS protection
+    var feedUrl = "https://crossorigin.me/http://feeds.feedburner.com/uhhyeahdude/podcast";
+    $.get(feedUrl, function getFeed(data) {
+      console.log($(data).find("item").children(0));
+      var el = $(data).find("item").children(0);
+      console.log("title      : " + el.find("title").find("data").text());
+      console.log("author     : " + el.find("author").text());
+      console.log("description: " + el.find("description").text());
+      /*$(data).find("item").each(function () { // or "item" or whatever suits your feed
+         var el = $(this);
+
+         console.log("------------------------");
+         console.log("title      : " + el.find("title").text());
+         console.log("author     : " + el.find("author").text());
+         console.log("description: " + el.find("description").text());
+      });*/
+    });
+  },
   render: function() {
     return (
       <div className="podcastBox">
@@ -19,18 +39,16 @@ var PodcastList = React.createClass({
     return {entry: []};
   },
   loadFeeds: function() {
-    this.setState({entry: Api.fetchRss(this.props.data[0].feedUrl)});
-          console.log({entry});
 
-    /**
-    //var podcastEntries = this.props.data.map(function(podcast) {
+      /*
+      //var podcastEntries = this.props.data.map(function(podcast) {
       //var entry;
       var feedUrl = this.props.data[0].feedUrl;
       //console.log(this.props.data[0].feedUrl);
       var feed = new google.feeds.Feed(feedUrl);
       feed.setNumEntries(4);
       feed.setResultFormat(google.feeds.Feed.JSON_FORMAT);
-      feed.load(function(result) {
+      feed.load(apiCallback);
         if (!result.error) {
           //entry = result.feed;
           this.setState({entry: result.feed});
@@ -42,8 +60,11 @@ var PodcastList = React.createClass({
           console.log(result.error.message);
         }
       });
-    //});*/
+    );*/
   },
+  //apiCallback: function() {
+
+  //}
   componentDidMount: function() {
 
     this.loadFeeds();
@@ -116,7 +137,7 @@ var data = [
             episodeDownload: "http://www.giantbomb.com/podcasts/download/1519/Ep40_-_The_Giant_Beastcast-02-25-2016-1683396598.mp3"
           },
   {id: 2, podcastTitle: "Serial",
-            feedUrl: "http://www.giantbomb.com/podcast-xml/beastcast/",
+            feedUrl: "http://feeds.feedburner.com/uhhyeahdude/podcast",
             imgUrl: "http://a5.mzstatic.com/us/r30/Music69/v4/70/c9/71/70c97133-f3a8-738e-ea2c-27a6dc7d9731/cover170x170.jpeg",
             episodeTitle: "S02 Episode 08: Hindsight, Part 2",
             episodeDate: "February-19-16 5:30 AM",
@@ -133,6 +154,7 @@ var data = [
           },
 ];
 
+/**
 var Api = {
   fetchRss(url) {
     var feed = new google.feeds.Feed(url);
@@ -151,7 +173,6 @@ var Api = {
 };
 
 //from https://github.com/christopherdro/react-native-rss-reader/blob/master/App/Api/RssFeedApi.js
-/**
 var Api = {
   fetchRss(url) {
     if (!(/^http:\/\//.test(url))) {

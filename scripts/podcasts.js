@@ -4,30 +4,44 @@ var PodcastBox = React.createClass({
   getInitialState: function() {
     return {entry: []};
   },
-  componentDidMount: function() {
-    //Don't know if it trust https://crossorigin.me/ but it
+  loadFeeds: function() {
+    var _this = this;
+    var feedUrl = "http://cors.io/?u=" + this.props.data[0].feedUrl;
+    var feedId = 1;
+    //Don't know if it trust https://crossorigin.me/ or http://cors.io/?u= but it
     //bypasses CORS protection
-    var feedUrl = "https://crossorigin.me/http://feeds.feedburner.com/uhhyeahdude/podcast";
+    //var feedUrl = "https://crossorigin.me/http://feeds.feedburner.com/uhhyeahdude/podcast";
+    //var feedUrl = "http://cors.io/?u=http://www.giantbomb.com/podcast-xml/beastcast/";
     $.get(feedUrl, function getFeed(data) {
-      console.log($(data).find("item").children(0));
-      var el = $(data).find("item").children(0);
-      console.log("title      : " + el.find("title").find("data").text());
-      console.log("author     : " + el.find("author").text());
-      console.log("description: " + el.find("description").text());
-      /*$(data).find("item").each(function () { // or "item" or whatever suits your feed
-         var el = $(this);
+      var el = $(data).find("item").first();
+      var entry = [
+        {id: feedId, podcastTitle: $(data).find("title").first().text(),
+          feedUrl: feedUrl,
+          imgUrl: $(data).find("url").text(),
+          episodeTitle: el.find("title").text(),
+          episodeDate: el.find("pubDate").text(),
+          episodeDescription: el.find("description").text(),
+          episodeDownload: el.find("enclosure").attr('url')
+        }
+      ];
+      console.log("title       : " + el.find("title").text());
+      console.log("description : " + el.find("description").text());
+      console.log("pubDate:      " + el.find("pubDate").text());
+      console.log("enclosure:    " + el.find("enclosure").attr('url'));
+      console.log("imgUrl      : " + $(data).find("url").text());
+      console.log("PodcastTitle: " + $(data).find("title").first().text());
 
-         console.log("------------------------");
-         console.log("title      : " + el.find("title").text());
-         console.log("author     : " + el.find("author").text());
-         console.log("description: " + el.find("description").text());
-      });*/
+      _this.setState({entry: entry});
     });
+  },
+  componentDidMount: function() {
+    this.loadFeeds();
+    //setInterval(this.loadFeeds, this.props.pollInterval);
   },
   render: function() {
     return (
       <div className="podcastBox">
-          <PodcastList data={this.props.data} pollInterval={2000} />
+          <PodcastList key={this.state.entry.id} data={this.state.entry} />
       </div>
     );
   }
@@ -38,45 +52,17 @@ var PodcastList = React.createClass({
   getInitialState: function() {
     return {entry: []};
   },
-  loadFeeds: function() {
-
-      /*
-      //var podcastEntries = this.props.data.map(function(podcast) {
-      //var entry;
-      var feedUrl = this.props.data[0].feedUrl;
-      //console.log(this.props.data[0].feedUrl);
-      var feed = new google.feeds.Feed(feedUrl);
-      feed.setNumEntries(4);
-      feed.setResultFormat(google.feeds.Feed.JSON_FORMAT);
-      feed.load(apiCallback);
-        if (!result.error) {
-          //entry = result.feed;
-          this.setState({entry: result.feed});
-          //google.setOnLoadCallback(this.handleFeedCallback);
-          //this.setState({entry: result.feed});
-        }
-        else
-        {
-          console.log(result.error.message);
-        }
-      });
-    );*/
-  },
-  //apiCallback: function() {
-
-  //}
   componentDidMount: function() {
 
-    this.loadFeeds();
-    setInterval(this.loadFeeds, this.props.pollInterval);
   },
   render: function() {
+    console.log(this.props.data);
     var podcastEntries = this.props.data.map(function(podcast) {
       return (
         <Podcast  key={podcast.id} 
         podcastTitle={podcast.podcastTitle} 
         imgUrl={podcast.imgUrl}
-        episodeTitle={podcast.episodeTitle}
+        episodeDescription={podcast.episodeDescription} 
         episodeDate={podcast.episodeDate}
         episodeDownload={podcast.episodeDownload}>
           {podcast.podcastTitle}
@@ -102,7 +88,7 @@ var Podcast = React.createClass({
           <div className="episode">
             {this.props.episodeTitle}<br/>
             {this.props.episodeDate}<br/>
-            {this.props.children}
+            {this.props.episodeDescription}
             <a href={this.props.episodeDownload} className="download">Download</a>
           </div>
         </div>
@@ -116,16 +102,6 @@ var noMargin = {
   marginTop:0,
   marginBottom:0
 }
-/**
-getFeed:function(feedUrl) {
-  var feed = new google.feeds.Feed(feedUrl);  
-  feed.setNumEntries(1);
-  feed.setResultFormat(google.feeds.Feed.JSON_FORMAT);
-  feed.load(function(result) {
-  if (!result.error) {
-    return result.feed;
-  }
-},*/
 
 var data = [
   {id: 1, podcastTitle: "The BeastCast",
@@ -154,36 +130,7 @@ var data = [
           },
 ];
 
-/**
-var Api = {
-  fetchRss(url) {
-    var feed = new google.feeds.Feed(url);
-    feed.setNumEntries(4);
-    feed.setResultFormat(google.feeds.Feed.JSON_FORMAT);
-    feed.load(function(result) {
-      if (!result.error) {
-      }
-      else
-      {
-        console.log(result.error.message);
-      }
-        return result.feed;
-    }
-  }
-};
 
-//from https://github.com/christopherdro/react-native-rss-reader/blob/master/App/Api/RssFeedApi.js
-var Api = {
-  fetchRss(url) {
-    if (!(/^http:\/\//.test(url))) {
-      url = "http://" + url;
-    }
-    var GOOGLE_FEED_API_URL = "https://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=-1&q="
-    var url = GOOGLE_FEED_API_URL + encodeURIComponent(url);
-
-    return fetch(url).then((res) => res.json());
-  }
-};*/
 
 ReactDOM.render(
   //React.createElement(PodcastBox, null),

@@ -6,15 +6,17 @@ var PodcastBox = React.createClass({
   },
   loadFeeds: function() {
     var _this = this;
-    var feedUrl = "http://cors.io/?u=" + this.props.data[0].feedUrl;
-    var feedId = 1;
     //Don't know if it trust https://crossorigin.me/ or http://cors.io/?u= but it
     //bypasses CORS protection
     //var feedUrl = "https://crossorigin.me/http://feeds.feedburner.com/uhhyeahdude/podcast";
     //var feedUrl = "http://cors.io/?u=http://www.giantbomb.com/podcast-xml/beastcast/";
+
+    var feedUrl = "http://cors.io/?u=" + this.props.data[0].feedUrl;
+    var feedId = 1;
+    var entry = [];
     $.get(feedUrl, function getFeed(data) {
       var el = $(data).find("item").first();
-      var entry = [
+      entry.push(
         {id: feedId, podcastTitle: $(data).find("title").first().text(),
           feedUrl: feedUrl,
           imgUrl: $(data).find("url").text(),
@@ -23,14 +25,16 @@ var PodcastBox = React.createClass({
           episodeDescription: el.find("description").text(),
           episodeDownload: el.find("enclosure").attr('url')
         }
-      ];
+      );
+      /*
       console.log("title       : " + el.find("title").text());
       console.log("description : " + el.find("description").text());
       console.log("pubDate:      " + el.find("pubDate").text());
       console.log("enclosure:    " + el.find("enclosure").attr('url'));
       console.log("imgUrl      : " + $(data).find("url").text());
       console.log("PodcastTitle: " + $(data).find("title").first().text());
-
+      console.log(entry);*/
+    console.log(entry);
       _this.setState({entry: entry});
     });
   },
@@ -56,7 +60,7 @@ var PodcastList = React.createClass({
 
   },
   render: function() {
-    console.log(this.props.data);
+    //console.log(this.props.data);
     var podcastEntries = this.props.data.map(function(podcast) {
       return (
         <Podcast  key={podcast.id} 

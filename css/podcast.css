@@ -84,15 +84,21 @@ p {
 }
 
 .podcastList {
-	min-width: 80%;
-	background: #e6e6e6;
+}
+.podcastList:nth-of-type(odd) {
+	background: #a6a6a6;
+}
+
+.podcast {
+    min-width: 80%;
+    background: #e6e6e6;
     font-size: 17;
     height: 200px;
     margin-top: -2px; /* dirty way to remove whitespace between divs */ 
     padding: 12px 12px 12px 12px;
 }
-.podcastList:nth-of-type(odd) {
-	background: #a6a6a6;
+.podcast:nth-of-type(odd) {
+    background: #a6a6a6;
 }
 
 .podcastTitle {
